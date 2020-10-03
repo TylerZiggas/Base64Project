@@ -17,8 +17,7 @@ public class base64conversion {
     String stringToEncode = input.nextLine();
     byte[] encodedByte = stringToEncode.getBytes();
 
-    String finalString = "";
-    finalString = Base64.encodeBase64String(encodedByte); // Encode the string
+    String finalString = Base64.encodeBase64String(encodedByte); // Encode the string
     System.out.println("The encoded string is: " + finalString);
     }
 }
