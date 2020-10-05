@@ -1,23 +1,40 @@
 package edu.umsl;
 
 import org.apache.commons.codec.binary.Base64;
+import lombok.Getter;
 import java.util.Scanner;
 
-
+@Getter
 public class base64conversion {
-    public static void main(String args[]) {
-    String encodedString = "SSBsb3ZlIG15IENNUCBTQ0kgMjI2MSBjbGFzcyBzbyBtdWNoLCBJIHdpc2ggSSBjb3VsZCBiZSBqdXN0IGFzIGNvb2wgYXMgbXkgcHJvZmVzc29y"; // Needed string
-    byte[] decodedBytes = Base64.decodeBase64(encodedString); // Decode using the apache base 64 conversion
-    String decodedString = new String(decodedBytes); // Turn into a string
-    System.out.println("The code for the project is: " + encodedString);
-    System.out.println("The code translates to:  " + decodedString + "\n");
+    private final String decodedToEncoded;
+    private final String encodedToDecoded;
 
-    Scanner input = new Scanner(System.in);
-    System.out.print("Enter a string to encode: "); // User input to encode into Base64
-    String stringToEncode = input.nextLine();
-    byte[] encodedByte = stringToEncode.getBytes();
+    public base64conversion(String decodedString, String encodedString) {
+        this.encodedToDecoded = encodedString;
+        this.decodedToEncoded = decodedString;
+    }
 
-    String finalString = Base64.encodeBase64String(encodedByte); // Encode the string
-    System.out.println("The encoded string is: " + finalString);
+    public String decodeConversion() {
+        byte[] decodedBytes = Base64.decodeBase64(encodedToDecoded);
+        return new String(decodedBytes);
+    }
+
+    public String encodeConversion() {
+        byte[] encodedByte = decodedToEncoded.getBytes();
+        return Base64.encodeBase64String(encodedByte);
+    }
+
+    public static void main(String args[]) {// Needed string
+        String encodedString = "SSBsb3ZlIG15IENNUCBTQ0kgMjI2MSBjbGFzcyBzbyBtdWNoLCBJIHdpc2ggSSBjb3VsZCBiZSBqdXN0IGFzIGNvb2wgYXMgbXkgcHJvZmVzc29y";
+
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a string to encode: "); // User input to encode into Base64
+        String decodedString = input.nextLine();
+
+        base64conversion base64 = new base64conversion(decodedString, encodedString);
+
+        System.out.println("The encoded string is: " + base64.encodeConversion() + "\n");
+        System.out.println("The code for the project is: " + base64.encodedToDecoded);
+        System.out.println("The code translates to:  " + base64.decodeConversion());
     }
 }
